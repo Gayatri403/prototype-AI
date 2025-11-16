@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Habit Tracker Prototype</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #dff1ff, #f3e7ff);
+    }
+    h2 {
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+    }
+    .screen {
+      display: none;
+      padding: 25px;
+      max-width: 420px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+    .active {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .btn {
+      display: block;
+      text-align: center;
+      padding: 12px 15px;
+      background: #6a5acd;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      margin: 10px 0;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(106,90,205,0.3);
+      transition: 0.2s ease;
+    }
+    .btn:hover {
+      background: #5a4ac7;
+      transform: scale(1.02);
+    }
+    input {
+      padding: 12px;
+      width: 90%;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    .habit, .setting-item, .detail-box, .calendar-day {
+      background: #fafafa;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 14px;
+      border: 1px solid #eee;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      transition: 0.2s ease;
+    }
+    .habit:hover, .setting-item:hover {
+      transform: scale(1.02);
+      background: #f0f0ff;
+    }
+    .nav .btn {
+      display: inline-block;
+      width: 48%;
+      margin-right: 1%;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .calendar-day {
+      text-align: center;
+      padding: 18px 0;
+      font-weight: 500;
+      border-radius: 12px;
+      background: #e8e4ff;
+    }
+  </style>
+</head>
+<body><!-- APP LOGO + BRANDING WITH ANIMATION --><div style="text-align:center; margin-top:20px; padding-top:10px; animation: fadeDown 0.8s ease-out;">  <div style="width:120px; height:120px; margin:0 auto 18px auto; border-radius:50%; background:#6a5acd; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,0.25); animation: popIn 0.7s ease-out;">
+    <span style="color:white; font-size:36px; font-weight:700;">HA</span>
+  </div>  <div style="font-size:44px; font-weight:700; color:#6a5acd; letter-spacing:1.5px; margin-top:8px; animation: fadeUp 1s ease-out;">
+    HabitAI
+  </div>  <div style="font-size:17px; color:#555; margin-top:6px; animation: fadeUp 1.2s ease-out;">
+    Your Smart Daily Routine Partner
+  </div>
+  <br>
+</div><style>
+@keyframes fadeDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  0% { transform: scale(0.6); opacity: 0; }
+  80% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+</style></div>
+</div><!-- HOME SCREEN --><div id="home" class="screen active">
+  <h2>Daily Habit Tracker</h2>
+  <div class="nav">
+    <a class="btn" href="#" onclick="openScreen('add')">Add Habit</a>
+    <a class="btn" href="#" onclick="openScreen('progress')">Progress</a>
+    <a class="btn" href="#" onclick="openScreen('ai')">AI Suggestions</a>
+    <a class="btn" href="#" onclick="openScreen('settings')">Settings</a>
+    <a class="btn" href="#" onclick="openScreen('calendar')">Calendar</a>
+  </div>  <div class="habit" onclick="openScreen('details')">Drink Water — <strong>Not Done</strong></div>
+  <div class="habit" onclick="openScreen('details')">Study 1 hour — <strong>Done</strong></div>
+  <div class="habit" onclick="openScreen('details')">Exercise — <strong>Not Done</strong></div>
+</div><!-- ADD HABIT SCREEN --><div id="add" class="screen">
+  <h2>Add Habit</h2>
+  <p><input type="text" placeholder="Enter habit name" style="padding:10px; width:90%;"></p>
+  <a class="btn" href="#" onclick="openScreen('home')">Save</a>
+  <br><br>
+  <a href="#" onclick="openScreen('home')">Back</a>
+</div><!-- PROGRESS SCREEN --><div id="progress" class="screen">
+  <h2>Your Progress</h2>
+  <p>Weekly Completion: <strong>64%</strong></p>
+  <p>Streak: <strong>3 days</strong></p>
+  <a href="#" onclick="openScreen('home')">Back</a>
+</div><!-- AI SUGGESTIONS SCREEN --><div id="ai" class="screen">
+  <h2>AI Suggestions</h2>
+  <p>• You often forget habits in the evening. Try completing them earlier.</p>
+  <p>• Great job maintaining your 3-day streak! Keep going!</p>
+  <p>• You miss habits mostly on weekends. Try setting reminders.</p>
+  <a href="#" onclick="openScreen('home')">Back</a>
+</div><!-- SETTINGS SCREEN --><div id="settings" class="screen">
+  <h2>Settings</h2>
+  <div class="setting-item">Change Theme</div>
+  <div class="setting-item">Notification Time</div>
+  <div class="setting-item">Reset Data</div>
+  <a href="#" onclick="openScreen('home')">Back</a>
+</div><!-- HABIT DETAILS SCREEN --><div id="details" class="screen">
+  <h2>Habit Details</h2>
+  <div class="detail-box">
+    <strong>Name:</strong> Study 1 hour<br>
+    <strong>Last Completed:</strong> Today<br>
+    <strong>Completion Rate:</strong> 70%<br>
+  </div>
+  <a class="btn" href="#" onclick="openScreen('home')">Mark as Done</a>
+  <br><br>
+  <a href="#" onclick="openScreen('home')">Back</a>
+</div><!-- CALENDAR SCREEN --><div id="calendar" class="screen">
+  <h2>Calendar</h2>
+  <div class="calendar-grid">
+    <div class="calendar-day">1</div>
+    <div class="calendar-day">2</div>
+    <div class="calendar-day">3</div>
+    <div class="calendar-day">4</div>
+    <div class="calendar-day">5</div>
+    <div class="calendar-day">6</div>
+    <div class="calendar-day">7</div>
+    <div class="calendar-day">8</div>
+    <div class="calendar-day">9</div>
+    <div class="calendar-day">10</div>
+    <div class="calendar-day">11</div>
+    <div class="calendar-day">12</div>
+    <div class="calendar-day">13</div>
+    <div class="calendar-day">14</div>
+  </div>
+  <br>
+  <a href="#" onclick="openScreen('home')">Back</a>
+</div><script>
+function openScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+}
+</script><!-- LOGIN SCREEN --><div id="login" class="screen">
+  <h2>Login</h2>
+  <p><input type="text" placeholder="Email" style="padding:10px; width:90%;"></p>
+  <p><input type="password" placeholder="Password" style="padding:10px; width:90%;"></p>
+  <a class="btn" href="#" onclick="openScreen('home')">Login</a>
+  <br><br>
+  <a href="#" onclick="openScreen('signup')">Create an Account</a>
+</div><!-- SIGNUP SCREEN --><div id="signup" class="screen">
+  <h2>Sign Up</h2>
+  <p><input type="text" placeholder="Full Name" style="padding:10px; width:90%;"></p>
+  <p><input type="text" placeholder="Email" style="padding:10px; width:90%;"></p>
+  <p><input type="password" placeholder="Password" style="padding:10px; width:90%;"></p>
+  <a class="btn" href="#" onclick="openScreen('login')">Sign Up</a>
+  <br><br>
+  <a href="#" onclick="openScreen('login')">Back to Login</a>
+</div></body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
